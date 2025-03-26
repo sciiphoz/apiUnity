@@ -23,7 +23,7 @@ namespace TestApi3K.Service
 
             return new OkObjectResult(new
             {
-                data = new { users = users },
+                users = users,
                 status = true
             });
         }
@@ -34,7 +34,7 @@ namespace TestApi3K.Service
 
             return new OkObjectResult(new
             {
-                data = new { user = user },
+                user = user,
                 status = true
             });
         }
@@ -45,7 +45,7 @@ namespace TestApi3K.Service
 
             return new OkObjectResult(new
             {
-                data = new { skins = skins },
+                skins = skins,
                 status = true
             });
         }
@@ -56,7 +56,7 @@ namespace TestApi3K.Service
 
             return new OkObjectResult(new
             {
-                data = new { userskin = userskin },
+                userskin = userskin,
                 status = true
             });
         }

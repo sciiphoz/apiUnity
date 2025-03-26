@@ -59,13 +59,13 @@ namespace TestApi3K.Controllers
         }
 
         [HttpPut]
-        [Route("user/{userID}/addCurrency/{value}")]
+        [Route("user/{userId}/addCurrency/{value}")]
         public async Task<IActionResult> AddCurrency(int userId, int value)
         {
             return await _userLoginService.AddCurrencyAsync(userId, value);
         }
         [HttpPut]
-        [Route("user/{userID}/depleteCurrency/{value}")]
+        [Route("user/{userId}/depleteCurrency/{value}")]
         public async Task<IActionResult> DepleteCurrency(int userId, int value)
         {
             return await _userLoginService.DepleteCurrencyAsync(userId, value);
