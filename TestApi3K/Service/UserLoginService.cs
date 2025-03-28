@@ -45,7 +45,7 @@ namespace TestApi3K.Service
 
             return new OkObjectResult(new
             {
-                skins = skins,
+                skins,
                 status = true
             });
         }
@@ -70,17 +70,23 @@ namespace TestApi3K.Service
                 Currency = 50
             };
 
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-
-            return new OkObjectResult(new { status = true });
+            if (user == null)
+            {
+                return new ConflictObjectResult(new { status = false });
+            }
+            else
+            {
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return new OkObjectResult(new { user, status = true });
+            }
         }
 
         public async Task<IActionResult> LoginAsync(LoginModel user)
         {
             Users currentUser = await _context.Users.Where(x => x.Login == user.Login && x.Password == user.Password).SingleAsync();
 
-            if (currentUser == null) return new ConflictObjectResult(new { status = true });
+            if (currentUser == null) return new ConflictObjectResult(new { status = false });
 
             return new OkObjectResult(new { user = currentUser, status = true });
         }
