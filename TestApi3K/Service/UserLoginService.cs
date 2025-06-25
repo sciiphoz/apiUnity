@@ -19,11 +19,11 @@ namespace TestApi3K.Service
 
         public async Task<IActionResult> GetAllUsersAsync()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.OrderByDescending(x => x.level1score + x.level2score + x.level3score).Take(10).ToListAsync();
 
             return new OkObjectResult(new
             {
-                users = users,
+                users,
                 status = true
             });
         }
@@ -34,40 +34,16 @@ namespace TestApi3K.Service
 
             return new OkObjectResult(new
             {
-                user = user,
+                user,
                 status = true
             });
         }
-
-        public async Task<IActionResult> GetAllSkinsAsync()
-        {
-            var skins = await _context.Skins.ToListAsync();
-
-            return new OkObjectResult(new
-            {
-                skins,
-                status = true
-            });
-        }
-
-        public async Task<IActionResult> GetUsersSkinsAsync(int userId)
-        {
-            var userskin = await _context.UsersSkins.Where(x => x.id_User == userId).ToListAsync();
-
-            return new OkObjectResult(new
-            {
-                userskin = userskin,
-                status = true
-            });
-        }
-
         public async Task<IActionResult> CreateNewUserAsync(CreateNewUser newUser)
         {
             var user = new Users()
             {
                 Login = newUser.Login,
                 Password = newUser.Password,
-                Currency = 50
             };
 
             if (user == null)
@@ -91,59 +67,45 @@ namespace TestApi3K.Service
             return new OkObjectResult(new { user = currentUser, status = true });
         }
 
-        public async Task<IActionResult> AddCurrencyAsync(int userId, int value)
+        public async Task<IActionResult> AddScoreAsync(int userId, int value, int lvl)
         {
             var user = await _context.Users.FindAsync(userId);
 
             if (user != null)
             {
-                user.Currency += value;
-            }
-
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            return new OkObjectResult(new { status = true });
-        }
-        public async Task<IActionResult> DepleteCurrencyAsync(int userId, int value)
-        {
-            var user = await _context.Users.FindAsync(userId);
-
-            if (user != null)
-            {
-                user.Currency -= value;
-            }
-
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            return new OkObjectResult(new { status = true });
-        }
-        public async Task<IActionResult> BuySkinAsync(int userId, int skinId) { 
-            UsersSkins userskin;
-            var user = await _context.Users.FindAsync(userId);
-            var skin = await _context.Skins.FindAsync(skinId);
-
-            if (user.Currency >= skin.Price)
-            {
-                if (!_context.UsersSkins.Where(x => x.id_Skin == skinId && x.id_User == userId).Any())
+                switch (lvl)
                 {
-                    userskin = new UsersSkins
-                    {
-                        id_User = userId,
-                        id_Skin = skinId,
-                    };
-
-                    await DepleteCurrencyAsync(userId, skin.Price);
-
-                    await _context.UsersSkins.AddAsync(userskin);
-                    await _context.SaveChangesAsync();
-
-                    return new OkObjectResult(new { status = true });
+                    case 1:
+                        if (user.level1score < value)
+                        {
+                            user.level1score = value;
+                            break;
+                        }
+                        else break;
+                    case 2:
+                        if (user.level2score < value)
+                        {
+                            user.level2score = value;
+                            break;
+                        }
+                        else break;
+                    case 3:
+                        if (user.level3score < value)
+                        {
+                            user.level3score = value;
+                            break;
+                        }
+                        else break;
+                    default:
+                        break;
                 }
             }
 
-            return new ConflictObjectResult(new { status = false });
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return new OkObjectResult(new { status = true });
         }
+
     }
 }

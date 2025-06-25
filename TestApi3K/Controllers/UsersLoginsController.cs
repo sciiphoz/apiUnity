@@ -30,20 +30,6 @@ namespace TestApi3K.Controllers
             return await _userLoginService.GetUserAsync(userId);
         }
 
-        [HttpGet]
-        [Route("getAllSkins")]
-        public async Task<IActionResult> GetAllSkins()
-        {
-            return await _userLoginService.GetAllSkinsAsync();
-        }
-
-        [HttpGet]
-        [Route("getUsersSkins")]
-        public async Task<IActionResult> GetUsersSkins(int userId)
-        {
-            return await _userLoginService.GetUsersSkinsAsync(userId);
-        }
-
         [HttpPost]
         [Route("user/register")]
         public async Task<IActionResult> CreateNewUser(CreateNewUser newUser)
@@ -59,22 +45,10 @@ namespace TestApi3K.Controllers
         }
 
         [HttpPut]
-        [Route("user/{userId}/addCurrency/{value}")]
-        public async Task<IActionResult> AddCurrency(int userId, int value)
+        [Route("user/{userId}/score/{value}/level/{lvl}")]
+        public async Task<IActionResult> AddCurrency(int userId, int value, int lvl)
         {
-            return await _userLoginService.AddCurrencyAsync(userId, value);
-        }
-        [HttpPut]
-        [Route("user/{userId}/depleteCurrency/{value}")]
-        public async Task<IActionResult> DepleteCurrency(int userId, int value)
-        {
-            return await _userLoginService.DepleteCurrencyAsync(userId, value);
-        }
-        [HttpPut]
-        [Route("user/{userId}/buySkin/{skinId}")]
-        public async Task<IActionResult> BuySkin(int userId, int skinId)
-        {
-            return await _userLoginService.BuySkinAsync(userId, skinId);
+            return await _userLoginService.AddScoreAsync(userId, value, lvl);
         }
     }
 }
