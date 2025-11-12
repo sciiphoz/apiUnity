@@ -11,5 +11,7 @@ namespace TestApi3K.Model
         public int level1score { get; set; } = 0;
         public int level2score { get; set; } = 0;
         public int level3score { get; set; } = 0;
+
+        public virtual ICollection<UsersRecord> UserAchievements { get; set; } = new List<UsersRecord>();
     }
 }

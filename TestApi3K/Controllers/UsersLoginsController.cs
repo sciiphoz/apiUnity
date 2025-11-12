@@ -46,7 +46,7 @@ namespace TestApi3K.Controllers
 
         [HttpPut]
         [Route("user/{userId}/score/{value}/level/{lvl}")]
-        public async Task<IActionResult> AddCurrency(int userId, int value, int lvl)
+        public async Task<IActionResult> AddScore(int userId, int value, int lvl)
         {
             return await _userLoginService.AddScoreAsync(userId, value, lvl);
         }

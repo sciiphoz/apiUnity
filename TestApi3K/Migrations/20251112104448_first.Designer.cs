@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestApi3K.DataBaseContext;
 
@@ -10,9 +11,11 @@ using TestApi3K.DataBaseContext;
 namespace TestApi3K.Migrations
 {
     [DbContext(typeof(ContextDb))]
-    partial class ContextDbModelSnapshot : ModelSnapshot
+    [Migration("20251112104448_first")]
+    partial class first
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,13 +101,13 @@ namespace TestApi3K.Migrations
             modelBuilder.Entity("TestApi3K.Model.UsersRecord", b =>
                 {
                     b.HasOne("TestApi3K.Model.Achievements", "Achievement")
-                        .WithMany("UserAchievements")
+                        .WithMany("UsersRecords")
                         .HasForeignKey("id_Achievement")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TestApi3K.Model.Users", "User")
-                        .WithMany("UserAchievements")
+                        .WithMany("UsersRecords")
                         .HasForeignKey("id_User")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -116,12 +119,12 @@ namespace TestApi3K.Migrations
 
             modelBuilder.Entity("TestApi3K.Model.Achievements", b =>
                 {
-                    b.Navigation("UserAchievements");
+                    b.Navigation("UsersRecords");
                 });
 
             modelBuilder.Entity("TestApi3K.Model.Users", b =>
                 {
-                    b.Navigation("UserAchievements");
+                    b.Navigation("UsersRecords");
                 });
 #pragma warning restore 612, 618
         }
