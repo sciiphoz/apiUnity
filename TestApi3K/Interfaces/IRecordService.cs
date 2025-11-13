@@ -7,7 +7,6 @@ namespace TestApi3K.Interfaces
     public interface IRecordService
     {
         Task<IActionResult> GetAllRecordsAsync(int userId);
-        Task<IActionResult> GetAllAchievementsAsync();
-        Task<IActionResult> AddRecordAsync(Record newRecord);
+        Task<IActionResult> AddRecordAsync(int achievementId, int userId);
     }
 }

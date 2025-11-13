@@ -17,13 +17,6 @@ namespace TestApi3K.Controllers
         }
 
         [HttpGet]
-        [Route("getAllAchievements")]
-        public async Task<IActionResult> GetAllAchievements()
-        {
-            return await _recordService.GetAllAchievementsAsync();
-        }
-
-        [HttpGet]
         [Route("getAllRecords/{userId}")]
         public async Task<IActionResult> GetAllRecords(int userId)
         {
@@ -31,10 +24,10 @@ namespace TestApi3K.Controllers
         }
 
         [HttpPost]
-        [Route("record/create")]
-        public async Task<IActionResult> CreateNewUser(Record newRecord)
+        [Route("achievement/{achievementId}/addTo/{userId}")]
+        public async Task<IActionResult> CreateNewUser(int achievementId, int userId)
         {
-            return await _recordService.AddRecordAsync(newRecord);
+            return await _recordService.AddRecordAsync(achievementId, userId);
         }
     }
 }

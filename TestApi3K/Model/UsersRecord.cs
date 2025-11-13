@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestApi3K.Model
@@ -16,8 +17,5 @@ namespace TestApi3K.Model
 
         [ForeignKey("id_User")]
         public virtual Users User { get; set; }
-
-        [ForeignKey("id_Achievement")]
-        public virtual Achievements Achievement { get; set; }
     }
 }

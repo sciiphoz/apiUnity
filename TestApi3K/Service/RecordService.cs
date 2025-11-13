@@ -16,22 +16,9 @@ namespace TestApi3K.Service
             _context = context;
         }
 
-        public async Task<IActionResult> GetAllAchievementsAsync()
-        {
-            var achievements = await _context.Achievements.OrderByDescending(x => x.id_Achievement).ToListAsync();
-
-            return new OkObjectResult(new
-            {
-                achievements,
-                status = true
-            });
-        }
-
         public async Task<IActionResult> GetAllRecordsAsync(int userId)
         {
             var records = await _context.UsersRecord.OrderByDescending(x => x.id_Record).Where(ua => ua.id_User == userId)
-                .Include(ua => ua.Achievement)
-                .Select(ua => ua.Achievement)
                 .ToListAsync();
 
             return new OkObjectResult(new
@@ -41,12 +28,12 @@ namespace TestApi3K.Service
             });
         }
 
-        public async Task<IActionResult> AddRecordAsync(Record newRecord)
+        public async Task<IActionResult> AddRecordAsync(int achievementId, int userId)
         {
             var record = new UsersRecord()
             {
-                id_User = newRecord.id_User,
-                id_Achievement = newRecord.id_Achievement,
+                id_User = userId,
+                id_Achievement = achievementId,
             };
 
             if (record == null)

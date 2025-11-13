@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestApi3K.DataBaseContext;
 
@@ -10,9 +11,11 @@ using TestApi3K.DataBaseContext;
 namespace TestApi3K.Migrations
 {
     [DbContext(typeof(ContextDb))]
-    partial class ContextDbModelSnapshot : ModelSnapshot
+    [Migration("20251112161559_third")]
+    partial class third
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,9 +71,6 @@ namespace TestApi3K.Migrations
                     b.HasKey("id_Record");
 
                     b.HasIndex("id_User");
-
-                    b.HasIndex("id_Achievement", "id_User")
-                        .IsUnique();
 
                     b.ToTable("UsersRecord");
                 });
