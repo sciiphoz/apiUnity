@@ -12,7 +12,9 @@ builder.Services.AddDbContext<ContextDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDbString")), ServiceLifetime.Scoped);
 builder.Services.AddScoped<IUsersLoginsService, UserLoginService>();
 builder.Services.AddScoped<IRecordService, RecordService>();
+
 var app = builder.Build();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

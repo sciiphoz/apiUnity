@@ -19,7 +19,7 @@ namespace TestApi3K.Service
 
         public async Task<IActionResult> GetAllUsersAsync()
         {
-            var users = await _context.Users.OrderByDescending(x => x.level1score + x.level2score + x.level3score).Take(10).ToListAsync();
+            var users = await _context.Users.OrderByDescending(x => x.level1score + x.level2score + x.level3score).Take(9).ToListAsync();
 
             return new OkObjectResult(new
             {
@@ -52,9 +52,16 @@ namespace TestApi3K.Service
             }
             else
             {
-                await _context.Users.AddAsync(user);
-                await _context.SaveChangesAsync();
-                return new OkObjectResult(new { user, status = true });
+                if (_context.Users.Where(x => x.Login == newUser.Login && x.Password == newUser.Password).Any())
+                {
+                    return new ConflictObjectResult(new { status = false });
+                }
+                else
+                {
+                    await _context.Users.AddAsync(user);
+                    await _context.SaveChangesAsync();
+                    return new OkObjectResult(new { user, status = true });
+                }
             }
         }
 
