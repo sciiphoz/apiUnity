@@ -1,0 +1,14 @@
+1	player	player1	100	0	0
+2	string	string	0	0	0
+3	Kevin	123123	105	50	100
+4	NewPlayer	ghghgh	100	150	150
+5	ShadowJump	456789	95	125	175
+6	PixelRunner	qwerty321	75	100	125
+7	EpicGamer	pass1234	105	140	180
+8	LunaPlays	moon456	65	100	110
+9	SpeedsterX	fast789	100	85	90
+10	JumpyFrog	lilypad1	75	105	75
+11	CloudHopper	skyhigh22	40	125	85
+12	RetroPlayer	oldschool	50	100	90
+13	GoldenBoot	kickit33	85	75	100
+14	MysticWolf	howl123	80	55	125
